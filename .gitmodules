@@ -1,0 +1,3 @@
+[submodule "sokoban/opentk"]
+	path = sokoban/opentk
+	url = https://github.com/opentk/opentk
