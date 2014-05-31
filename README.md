@@ -2,4 +2,5 @@ sokoban
 =======
 
 usefull links:
-[http://habrahabr.ru/post/133983/](opentk habrahabr example)
+[opentk documentation](http://www.opentk.com/doc)
+[opentk habrahabr example](http://habrahabr.ru/post/133983/)
