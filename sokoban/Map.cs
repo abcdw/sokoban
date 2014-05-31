@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace sokoban
 {
     class Map
@@ -5,10 +7,14 @@ namespace sokoban
         private int height;
         private int width;
         public int[,] field;
-        private readonly int[] dx = { -1, 1,  0, 0, };
-        private readonly int[] dy = {  0, 0, -1, 1, };
-        private int playerX;
-        private int playerY;
+        private static readonly Point[] dp = {
+            new Point(-1,  0),
+            new Point( 1,  0),
+            new Point( 0, -1),
+            new Point( 0,  1),
+        };
+
+        private Point player;
 
         public enum FieldType {
             none,
@@ -40,16 +46,24 @@ namespace sokoban
 
         private void initField()
         {
+            player = new Point();
             field = new int[height, width];
             field[2, 2] = (int)FieldType.wall;
-            field[playerX, playerY] = (int)FieldType.player;
+            field[player.X, player.Y] = (int)FieldType.player;
+        }
+
+        private bool isValidField(Point p)
+        {
+
+            return true;
         }
 
         public void move(MoveType movement)
         {
-            field[playerX, playerY] = (int)FieldType.none;
-            field[playerX += dx[(int)movement],
-                  playerY += dy[(int)movement]] = (int)FieldType.player;
+
+            field[player.X, player.Y] = (int)FieldType.none;
+            player += (Size)dp[(int)movement];
+            field[player.X, player.Y] = (int)FieldType.player;
         }
 
         public void load()
