@@ -64,6 +64,29 @@ namespace sokoban
             if (E.Key == Key.Escape) {
                 Exit();
             }
+
+            float delta = 1.0f;
+            switch (E.Key)
+            {
+                case Key.Right:
+                    bodyX += delta;
+                    break;
+
+                case Key.Left:
+                    bodyX -= delta;
+                    break;
+
+                case Key.Up:
+                    bodyY -= delta;
+                    break;
+
+                case Key.Down:
+                    bodyY += delta;
+                    break;
+            
+                default:
+                    break;
+            }
         }
 
         protected override void OnRenderFrame(FrameEventArgs E)
@@ -89,13 +112,24 @@ namespace sokoban
 
             GL.Begin(BeginMode.Quads);
 
-            RenderBody(1.0f, 1.0f, Color4.Bisque);
+            RenderMap();
+            RenderBody(bodyX, bodyY, Color4.Bisque);
 
             GL.End();
             SwapBuffers();
         }
 
-        private void RenderBody(float X, float Y, Color4 color) {
+        private void RenderMap() 
+        {
+            GL.Color4(Color4.Brown);
+            GL.Vertex2(0, 0);
+            GL.Vertex2(MapWidth * BodySize, 0);
+            GL.Vertex2(MapWidth * BodySize, MapHeight * BodySize);
+            GL.Vertex2(0, MapHeight * BodySize);
+        }
+
+        private void RenderBody(float X, float Y, Color4 color) 
+        {
             GL.Color4(color);
             GL.Vertex2(X * BodySize, Y * BodySize);
             GL.Vertex2((X + 1) * BodySize, Y * BodySize);
@@ -106,12 +140,14 @@ namespace sokoban
         //private Random Rand;
 
         private const int MapWidth = 7;
-        private const int MapHeight = 13;
+        private const int MapHeight = 7;
         private const int NominalWidth = 700;
         private const int NominalHeight = 500;
 
         private float ProjectionWidth;
         private float ProjectionHeight;
         private const int BodySize = 35;
+        private float bodyX;
+        private float bodyY;
     }
 }
