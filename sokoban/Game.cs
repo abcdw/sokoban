@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 using System.Drawing;
 
 namespace sokoban
@@ -26,6 +27,8 @@ namespace sokoban
             : base(800, 600, GraphicsMode.Default, "Sokoban")
         {
             VSync = VSyncMode.On;
+            Keyboard.KeyDown += 
+                new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
         }
 
         protected override void OnLoad(EventArgs E)
@@ -36,12 +39,20 @@ namespace sokoban
         protected override void OnResize(EventArgs E)
         {
             base.OnResize(E);
-            GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
+            GL.Viewport(ClientRectangle.X, ClientRectangle.Y,
+                        ClientRectangle.Width, ClientRectangle.Height);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs E)
         {
             base.OnUpdateFrame(E);
+        }
+        
+        protected void OnKeyDown(object Sender, KeyboardKeyEventArgs E) {
+            // System.Console.WriteLine(E.Key);
+            if (E.Key == Key.Escape) {
+                Exit();
+            }
         }
 
         protected override void OnRenderFrame(FrameEventArgs E)
@@ -49,7 +60,8 @@ namespace sokoban
             base.OnRenderFrame(E);
 
             GL.ClearColor(Color4.AliceBlue);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit 
+                   | ClearBufferMask.DepthBufferBit);
 
             SwapBuffers();
         }
