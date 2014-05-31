@@ -13,6 +13,20 @@ namespace sokoban
 {
     class Game : GameWindow
     {
+        private const int NominalWidth = 700;
+        private const int NominalHeight = 500;
+
+        private float ProjectionWidth;
+        private float ProjectionHeight;
+        private const int BlockSize = 35;
+        private Map map;
+        private Color4[] fieldColor = {
+            Color4.Black,
+            Color4.Brown,
+            Color4.Gray,
+            Color4.Red,
+        };
+
         [STAThread]
 
         static void Main(string[] args)
@@ -24,7 +38,7 @@ namespace sokoban
         }
 
         public Game()
-            : base(700, 500, GraphicsMode.Default, "Sokoban")
+            : base(NominalWidth, NominalHeight, GraphicsMode.Default, "Sokoban")
         {
             VSync = VSyncMode.On;
             map = new Map();
@@ -62,28 +76,27 @@ namespace sokoban
         }
 
         protected void OnKeyDown(object Sender, KeyboardKeyEventArgs E) {
-            // System.Console.WriteLine(E.Key);
-            if (E.Key == Key.Escape) {
-                Exit();
-            }
 
-            float delta = 1.0f;
             switch (E.Key)
             {
+                case Key.Escape:
+                    Exit();
+                    break;
+
                 case Key.Right:
-                    blockX += delta;
+                    map.move(Map.MoveType.right);
                     break;
 
                 case Key.Left:
-                    blockX -= delta;
+                    map.move(Map.MoveType.left);
                     break;
 
                 case Key.Up:
-                    blockY -= delta;
+                    map.move(Map.MoveType.up);
                     break;
 
                 case Key.Down:
-                    blockY += delta;
+                    map.move(Map.MoveType.down);
                     break;
             
                 default:
@@ -115,7 +128,6 @@ namespace sokoban
             GL.Begin(BeginMode.Quads);
 
             RenderMap();
-            RenderBlock(blockX, blockY, Color4.Bisque);
 
             GL.End();
             SwapBuffers();
@@ -123,11 +135,11 @@ namespace sokoban
 
         private void RenderMap() 
         {
-            GL.Color4(Color4.Brown);
-            GL.Vertex2(0, 0);
-            GL.Vertex2(MapWidth * BlockSize, 0);
-            GL.Vertex2(MapWidth * BlockSize, MapHeight * BlockSize);
-            GL.Vertex2(0, MapHeight * BlockSize);
+            for (int i = 0; i < map.Height; i++) {
+                for (int j = 0; j < map.Width; ++j) {
+                    RenderBlock(i, j, fieldColor[map.field[i, j]]);
+                }
+            }
         }
 
         private void RenderBlock(float X, float Y, Color4 color) 
@@ -139,18 +151,5 @@ namespace sokoban
             GL.Vertex2(X * BlockSize, (Y + 1) * BlockSize);
         }
 
-        //private Random Rand;
-
-        private const int MapWidth = 7;
-        private const int MapHeight = 7;
-        private const int NominalWidth = 700;
-        private const int NominalHeight = 500;
-
-        private float ProjectionWidth;
-        private float ProjectionHeight;
-        private const int BlockSize = 35;
-        private float blockX;
-        private float blockY;
-        private Map map;
     }
 }
