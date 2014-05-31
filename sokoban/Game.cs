@@ -27,6 +27,8 @@ namespace sokoban
             : base(700, 500, GraphicsMode.Default, "Sokoban")
         {
             VSync = VSyncMode.On;
+            map = new Map();
+
             Keyboard.KeyDown +=
                 new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
         }
@@ -149,5 +151,6 @@ namespace sokoban
         private const int BlockSize = 35;
         private float blockX;
         private float blockY;
+        private Map map;
     }
 }
