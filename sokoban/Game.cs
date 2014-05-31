@@ -69,19 +69,19 @@ namespace sokoban
             switch (E.Key)
             {
                 case Key.Right:
-                    bodyX += delta;
+                    blockX += delta;
                     break;
 
                 case Key.Left:
-                    bodyX -= delta;
+                    blockX -= delta;
                     break;
 
                 case Key.Up:
-                    bodyY -= delta;
+                    blockY -= delta;
                     break;
 
                 case Key.Down:
-                    bodyY += delta;
+                    blockY += delta;
                     break;
             
                 default:
@@ -113,7 +113,7 @@ namespace sokoban
             GL.Begin(BeginMode.Quads);
 
             RenderMap();
-            RenderBody(bodyX, bodyY, Color4.Bisque);
+            RenderBlock(blockX, blockY, Color4.Bisque);
 
             GL.End();
             SwapBuffers();
@@ -123,18 +123,18 @@ namespace sokoban
         {
             GL.Color4(Color4.Brown);
             GL.Vertex2(0, 0);
-            GL.Vertex2(MapWidth * BodySize, 0);
-            GL.Vertex2(MapWidth * BodySize, MapHeight * BodySize);
-            GL.Vertex2(0, MapHeight * BodySize);
+            GL.Vertex2(MapWidth * BlockSize, 0);
+            GL.Vertex2(MapWidth * BlockSize, MapHeight * BlockSize);
+            GL.Vertex2(0, MapHeight * BlockSize);
         }
 
-        private void RenderBody(float X, float Y, Color4 color) 
+        private void RenderBlock(float X, float Y, Color4 color) 
         {
             GL.Color4(color);
-            GL.Vertex2(X * BodySize, Y * BodySize);
-            GL.Vertex2((X + 1) * BodySize, Y * BodySize);
-            GL.Vertex2((X + 1) * BodySize, (Y + 1) * BodySize);
-            GL.Vertex2(X * BodySize, (Y + 1) * BodySize);
+            GL.Vertex2(X * BlockSize, Y * BlockSize);
+            GL.Vertex2((X + 1) * BlockSize, Y * BlockSize);
+            GL.Vertex2((X + 1) * BlockSize, (Y + 1) * BlockSize);
+            GL.Vertex2(X * BlockSize, (Y + 1) * BlockSize);
         }
 
         //private Random Rand;
@@ -146,8 +146,8 @@ namespace sokoban
 
         private float ProjectionWidth;
         private float ProjectionHeight;
-        private const int BodySize = 35;
-        private float bodyX;
-        private float bodyY;
+        private const int BlockSize = 35;
+        private float blockX;
+        private float blockY;
     }
 }
