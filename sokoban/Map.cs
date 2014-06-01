@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.IO;
 
 namespace sokoban
 {
@@ -92,10 +93,52 @@ namespace sokoban
         public void load()
         {
 
+            System.IO.StreamReader file = new System.IO.StreamReader("1.map");
+            string[] numbers = file.ReadLine().Split();
+            System.Console.WriteLine(numbers[1]);
+            height = int.Parse(numbers[0]);
+            width = int.Parse(numbers[1]);
+
+            System.Console.WriteLine(height + "  " + width);
+            for (int i = 0; i < Height; ++i) {
+                numbers = file.ReadLine().Split();
+                for (int j = 0; j < Width; ++j) {
+                    field[i, j] = int.Parse(numbers[j]);
+                    if (field[i, j] == (int)FieldType.player) {
+                        player.X = j;
+                        player.Y = i;
+                    }
+                }
+            }
+
+            file.Close();
+            System.Console.WriteLine("map loaded from 1.map");
         }
 
         public void save()
         {
+            System.IO.StreamWriter file = new System.IO.StreamWriter("1.map");
+            file.WriteLine(Height + " " + Width);
+            for (int i = 0; i < Height; ++i) {
+                for (int j = 0; j < Width; ++j) {
+                    file.Write(field[i, j] + " ");
+                }
+                file.WriteLine();
+            }
+
+            file.Close();
+            System.Console.WriteLine("map saved to 1.map");
+            //Stream file;
+            //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            //saveFileDialog1.Filter = "map files (*.map)|*.map";
+            //saveFileDialog1.RestoreDirectory = true ;
+
+            //if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
+                //if ((file = saveFileDialog1.OpenFile()) != null) {
+                    //file.Close();
+                //}
+            //}
 
         }
 

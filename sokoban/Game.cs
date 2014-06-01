@@ -83,6 +83,14 @@ namespace sokoban
                     Exit();
                     break;
 
+                case Key.S:
+                    map.save();
+                    break;
+
+                case Key.L:
+                    map.load();
+                    break;
+
                 case Key.Right:
                     map.move(Map.MoveType.right);
                     break;
