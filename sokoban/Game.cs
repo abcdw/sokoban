@@ -13,8 +13,8 @@ namespace sokoban
 {
     class Game : GameWindow
     {
-        private const int NominalWidth = 700;
-        private const int NominalHeight = 500;
+        private const int NominalWidth = 350;
+        private const int NominalHeight = 350;
 
         private float ProjectionWidth;
         private float ProjectionHeight;
