@@ -17,14 +17,16 @@ namespace sokoban
 
         private Point player;
 
-        public enum FieldType {
+        public enum FieldType
+        {
             none,
             block,
             wall,
             player,
         };
 
-        public enum MoveType {
+        public enum MoveType
+        {
             left,
             right,
             up,
@@ -34,14 +36,14 @@ namespace sokoban
         public Map(int height, int width)
         {
             this.height = height;
-            this.width  = width;
+            this.width = width;
             initField();
         }
 
         public Map()
         {
             this.height = 10;
-            this.width  = 10;
+            this.width = 10;
             initField();
         }
 
@@ -82,7 +84,7 @@ namespace sokoban
 
             if (isMoveableField(newPos)) {
                 field[blockAfter.X, blockAfter.Y] = (int)FieldType.block;
-                field[newPos.X,     newPos.Y]     = (int)FieldType.none;
+                field[newPos.X, newPos.Y] = (int)FieldType.none;
             }
 
             field[player.X, player.Y] = (int)FieldType.none;
@@ -135,18 +137,20 @@ namespace sokoban
             //saveFileDialog1.RestoreDirectory = true ;
 
             //if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
-                //if ((file = saveFileDialog1.OpenFile()) != null) {
-                    //file.Close();
-                //}
+            //if ((file = saveFileDialog1.OpenFile()) != null) {
+            //file.Close();
+            //}
             //}
 
         }
 
-        public int Height {
+        public int Height
+        {
             get { return height; }
         }
 
-        public int Width {
+        public int Width
+        {
             get { return width; }
         }
     }

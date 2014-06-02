@@ -8,6 +8,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System.Drawing;
+using System.Media;
 
 namespace sokoban
 {
@@ -26,13 +27,14 @@ namespace sokoban
             Color4.Gray,
             Color4.Red,
         };
+        private SoundPlayer player;
+        private bool playingMusic;
 
         [STAThread]
 
         static void Main(string[] args)
         {
-            using (var Game = new Game())
-            {
+            using (var Game = new Game()) {
                 Game.Run(30);
             }
         }
@@ -45,6 +47,16 @@ namespace sokoban
 
             Keyboard.KeyDown +=
                 new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
+
+            //WindowState = WindowState.Fullscreen;
+            Height = 1000;
+            Width = 973;
+            WindowBorder = WindowBorder.Fixed;
+
+            player = new SoundPlayer(sokoban.resources.bacground01);
+
+            ToggleMusic();
+            RenderText(sokoban.resources.help);
         }
 
         protected override void OnLoad(EventArgs E)
@@ -75,10 +87,10 @@ namespace sokoban
             base.OnUpdateFrame(E);
         }
 
-        protected void OnKeyDown(object Sender, KeyboardKeyEventArgs E) {
+        protected void OnKeyDown(object Sender, KeyboardKeyEventArgs E)
+        {
 
-            switch (E.Key)
-            {
+            switch (E.Key) {
                 case Key.Escape:
                     Exit();
                     break;
@@ -89,6 +101,10 @@ namespace sokoban
 
                 case Key.L:
                     map.load();
+                    break;
+
+                case Key.M:
+                    ToggleMusic();
                     break;
 
                 case Key.Right:
@@ -106,7 +122,7 @@ namespace sokoban
                 case Key.Down:
                     map.move(Map.MoveType.down);
                     break;
-            
+
                 default:
                     break;
             }
@@ -141,7 +157,7 @@ namespace sokoban
             SwapBuffers();
         }
 
-        private void RenderMap() 
+        private void RenderMap()
         {
             for (int i = 0; i < map.Height; i++) {
                 for (int j = 0; j < map.Width; ++j) {
@@ -150,7 +166,7 @@ namespace sokoban
             }
         }
 
-        private void RenderBlock(float X, float Y, Color4 color) 
+        private void RenderBlock(float X, float Y, Color4 color)
         {
             GL.Color4(color);
             GL.Vertex2(X * BlockSize, Y * BlockSize);
@@ -159,5 +175,20 @@ namespace sokoban
             GL.Vertex2(X * BlockSize, (Y + 1) * BlockSize);
         }
 
+        private void RenderText(String text)
+        {
+            System.Console.WriteLine(text);
+        }
+
+        private void ToggleMusic()
+        {
+            if (!playingMusic) {
+                player.PlayLooping();
+            } else {
+                player.Stop();
+            }
+
+            playingMusic = !playingMusic;
+        }
     }
 }
