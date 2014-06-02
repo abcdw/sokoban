@@ -77,6 +77,7 @@ namespace sokoban
 
             field[player.X, player.Y] = (int)FieldType.player;
             field[finish.X, finish.Y] = (int)FieldType.finish;
+            finished = false;
         }
 
         public void generateField()

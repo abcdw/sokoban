@@ -34,7 +34,7 @@ namespace sokoban
         };
 
         private Texture TextureBackground;
-        private Texture[] ColorTextures = new Texture[ColorsCount];
+        private Texture[] Textures = new Texture[ColorsCount];
 
         private SoundPlayer backgroundMusic;
         private bool playingMusic;
@@ -67,7 +67,14 @@ namespace sokoban
 
             ToggleMusic();
             TextureBackground = new Texture(sokoban.resources.background);
+            for (int i = 0; i < 5; i++) {
+                Textures[i] = new Texture(sokoban.resources.background);
+            }
 
+            Textures[(int)Map.FieldType.wall] = new Texture(sokoban.resources.brickwall);
+            Textures[(int)Map.FieldType.finish] = new Texture(sokoban.resources.finish);
+            Textures[(int)Map.FieldType.block] = new Texture(sokoban.resources.box);
+            Textures[(int)Map.FieldType.player] = new Texture(sokoban.resources.player);
             RenderText(sokoban.resources.help);
         }
 
@@ -122,14 +129,16 @@ namespace sokoban
                 case Key.M:
                     ToggleMusic();
                     break;
+                case Key.R:
+                    map.generateField();
+                    if (!playingMusic)
+                        ToggleMusic();
+                    break;
             }
 
             if (!map.Finished) {
 
                 switch (E.Key) {
-                    case Key.R:
-                        map.generateField();
-                        break;
 
                     case Key.Right:
                         map.move(Map.MoveType.right);
@@ -177,7 +186,8 @@ namespace sokoban
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref Modelview);
 
-            RenderBackground();
+            //RenderBackground();
+
             GL.Begin(BeginMode.Quads);
 
             RenderMap();
@@ -210,20 +220,34 @@ namespace sokoban
         {
             for (int i = 0; i < map.Height; i++) {
                 for (int j = 0; j < map.Width; ++j) {
-                    RenderBlock(i, j, fieldColor[map.field[i, j]]);
+                    RenderBlock(i, j, map.field[i, j]);
                 }
             }
         }
 
-        private void RenderBlock(float X, float Y, Color4 color)
+        private void RenderBlock(float X, float Y, int type)
         {
-            if (color == Color4.White)
+            
+            if (type == 0)
                 return;
-            GL.Color4(color);
+
+            Textures[type].Bind();
+            GL.Color4(Color4.White);
+            GL.Begin(BeginMode.Quads);
+
+            GL.TexCoord2(0, 0);
             GL.Vertex2(X * BlockSize, Y * BlockSize);
+
+            GL.TexCoord2(1, 0);
             GL.Vertex2((X + 1) * BlockSize, Y * BlockSize);
+
+            GL.TexCoord2(1, 1);
             GL.Vertex2((X + 1) * BlockSize, (Y + 1) * BlockSize);
+
+            GL.TexCoord2(0, 1);
             GL.Vertex2(X * BlockSize, (Y + 1) * BlockSize);
+
+            GL.End();
         }
 
         private void RenderText(String text)
