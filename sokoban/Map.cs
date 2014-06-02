@@ -131,11 +131,9 @@ namespace sokoban
 
             System.IO.StreamReader file = new System.IO.StreamReader("1.map");
             string[] numbers = file.ReadLine().Split();
-            System.Console.WriteLine(numbers[1]);
             height = int.Parse(numbers[0]);
             width = int.Parse(numbers[1]);
 
-            System.Console.WriteLine(height + "  " + width);
             for (int i = 0; i < Height; ++i) {
                 numbers = file.ReadLine().Split();
                 for (int j = 0; j < Width; ++j) {

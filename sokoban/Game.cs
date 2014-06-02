@@ -14,23 +14,32 @@ namespace sokoban
 {
     class Game : GameWindow
     {
+        #region fields
+
         private const int NominalWidth = 600;
         private const int NominalHeight = 600;
-
         private float ProjectionWidth;
         private float ProjectionHeight;
         private const int BlockSize = 30;
+
         private Map map;
-        private Color4[] fieldColor = {
+
+        private const int ColorsCount = 5;
+        private static Color4[] fieldColor = {
             Color4.White,
             Color4.DarkOrange,
             Color4.Brown,
             Color4.Red,
             Color4.BlueViolet,
         };
+
+        private Texture TextureBackground;
+        private Texture[] ColorTextures = new Texture[ColorsCount];
+
         private SoundPlayer backgroundMusic;
         private bool playingMusic;
 
+        #endregion
         [STAThread]
 
         static void Main(string[] args)
@@ -52,17 +61,23 @@ namespace sokoban
             //WindowState = WindowState.Fullscreen;
             //Height = 1000;
             //Width = 973;
-            WindowBorder = WindowBorder.Fixed;
+            //WindowBorder = WindowBorder.Fixed;
 
             backgroundMusic = new SoundPlayer(sokoban.resources.bacground01);
 
             ToggleMusic();
+            TextureBackground = new Texture(sokoban.resources.background);
+
             RenderText(sokoban.resources.help);
         }
 
         protected override void OnLoad(EventArgs E)
         {
             base.OnLoad(E);
+            GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Blend);
+
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
         }
 
         protected override void OnResize(EventArgs E)
@@ -162,6 +177,7 @@ namespace sokoban
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref Modelview);
 
+            RenderBackground();
             GL.Begin(BeginMode.Quads);
 
             RenderMap();
@@ -170,6 +186,26 @@ namespace sokoban
             SwapBuffers();
         }
 
+        private void RenderBackground()
+        {
+            TextureBackground.Bind();
+            GL.Color4(Color4.White);
+            GL.Begin(BeginMode.Quads);
+
+            GL.TexCoord2(0, 0);
+            GL.Vertex2(0, 0);
+
+            GL.TexCoord2((float)ClientRectangle.Width / TextureBackground.Width, 0);
+            GL.Vertex2(ProjectionWidth, 0);
+
+            GL.TexCoord2((float)ClientRectangle.Width / TextureBackground.Width, (float)ClientRectangle.Height / TextureBackground.Height);
+            GL.Vertex2(ProjectionWidth, ProjectionHeight);
+
+            GL.TexCoord2(0, (float)ClientRectangle.Height / TextureBackground.Height);
+            GL.Vertex2(0, ProjectionHeight);
+
+            GL.End();
+        }
         private void RenderMap()
         {
             for (int i = 0; i < map.Height; i++) {
@@ -181,6 +217,8 @@ namespace sokoban
 
         private void RenderBlock(float X, float Y, Color4 color)
         {
+            if (color == Color4.White)
+                return;
             GL.Color4(color);
             GL.Vertex2(X * BlockSize, Y * BlockSize);
             GL.Vertex2((X + 1) * BlockSize, Y * BlockSize);
@@ -209,7 +247,7 @@ namespace sokoban
             if (playingMusic)
                 ToggleMusic();
 
-            System.Console.WriteLine("Level complete. Congratulations!");
+            RenderText("Level complete. Congratulations!");
             SoundPlayer player = new SoundPlayer(sokoban.resources.levelfinished01);
             player.Play();
             

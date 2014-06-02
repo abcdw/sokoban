@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -90,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Texture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -127,6 +128,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\music\levelfinished01.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\textures\brickwall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\textures\background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
