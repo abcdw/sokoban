@@ -17,6 +17,11 @@ namespace sokoban
         };
 
         private Point player;
+        private Point finish;
+        private bool finished;
+        public bool Finished {
+            get {return finished;}
+        }
 
         public enum FieldType
         {
@@ -24,6 +29,7 @@ namespace sokoban
             block,
             wall,
             player,
+            finish,
         };
 
         public enum MoveType
@@ -50,7 +56,9 @@ namespace sokoban
 
         private void initField()
         {
+            finished = false;
             player = new Point();
+            finish = new Point();
             field = new int[height, width];
             
             Random rnd = new Random();
@@ -64,7 +72,11 @@ namespace sokoban
                 field[1, i] = field[height - 2, i] = (int)FieldType.wall;
             player.X = 2;
             player.Y = 2;
+            finish.X = height - 3;
+            finish.Y = width - 3;
+
             field[player.X, player.Y] = (int)FieldType.player;
+            field[finish.X, finish.Y] = (int)FieldType.finish;
         }
 
         public void generateField()
@@ -80,7 +92,8 @@ namespace sokoban
 
         private bool isEmptyField(Point p)
         {
-            return isInField(p) && field[p.X, p.Y] == (int)FieldType.none;
+            return isInField(p) && (field[p.X, p.Y] == (int)FieldType.none 
+                                 || field[p.X, p.Y] == (int)FieldType.finish);
         }
 
         private bool isMoveableField(Point p)
@@ -108,6 +121,9 @@ namespace sokoban
             field[player.X, player.Y] = (int)FieldType.none;
             player += (Size)dp[(int)movement];
             field[player.X, player.Y] = (int)FieldType.player;
+
+            if (player == finish)
+                finished = true;
         }
 
         public void load()

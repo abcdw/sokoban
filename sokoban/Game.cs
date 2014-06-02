@@ -26,8 +26,9 @@ namespace sokoban
             Color4.DarkOrange,
             Color4.Brown,
             Color4.Red,
+            Color4.BlueViolet,
         };
-        private SoundPlayer player;
+        private SoundPlayer backgroundMusic;
         private bool playingMusic;
 
         [STAThread]
@@ -53,7 +54,7 @@ namespace sokoban
             //Width = 973;
             WindowBorder = WindowBorder.Fixed;
 
-            player = new SoundPlayer(sokoban.resources.bacground01);
+            backgroundMusic = new SoundPlayer(sokoban.resources.bacground01);
 
             ToggleMusic();
             RenderText(sokoban.resources.help);
@@ -106,29 +107,37 @@ namespace sokoban
                 case Key.M:
                     ToggleMusic();
                     break;
+            }
 
-                case Key.R:
-                    map.generateField();
-                    break;
+            if (!map.Finished) {
 
-                case Key.Right:
-                    map.move(Map.MoveType.right);
-                    break;
+                switch (E.Key) {
+                    case Key.R:
+                        map.generateField();
+                        break;
 
-                case Key.Left:
-                    map.move(Map.MoveType.left);
-                    break;
+                    case Key.Right:
+                        map.move(Map.MoveType.right);
+                        break;
 
-                case Key.Up:
-                    map.move(Map.MoveType.up);
-                    break;
+                    case Key.Left:
+                        map.move(Map.MoveType.left);
+                        break;
 
-                case Key.Down:
-                    map.move(Map.MoveType.down);
-                    break;
+                    case Key.Up:
+                        map.move(Map.MoveType.up);
+                        break;
 
-                default:
-                    break;
+                    case Key.Down:
+                        map.move(Map.MoveType.down);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (map.Finished)
+                    OnLevelFinish();
             }
         }
 
@@ -187,12 +196,23 @@ namespace sokoban
         private void ToggleMusic()
         {
             if (!playingMusic) {
-                player.PlayLooping();
+                backgroundMusic.PlayLooping();
             } else {
-                player.Stop();
+                backgroundMusic.Stop();
             }
 
             playingMusic = !playingMusic;
+        }
+
+        private void OnLevelFinish()
+        {
+            if (playingMusic)
+                ToggleMusic();
+
+            System.Console.WriteLine("Level complete. Congratulations!");
+            SoundPlayer player = new SoundPlayer(sokoban.resources.levelfinished01);
+            player.Play();
+            
         }
     }
 }

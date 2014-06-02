@@ -82,5 +82,14 @@ namespace sokoban {
                 return ResourceManager.GetString("help", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream levelfinished01 {
+            get {
+                return ResourceManager.GetStream("levelfinished01", resourceCulture);
+            }
+        }
     }
 }
