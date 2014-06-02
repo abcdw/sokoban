@@ -72,7 +72,10 @@ namespace sokoban {
         /// <summary>
         ///   Ищет локализованную строку, похожую на h - help
         ///arrows - movement
-        ///Escape - quit.
+        ///escape - quit
+        ///m - toggle bacground music
+        ///s/l - save/load level from file
+        ///r - generate new level.
         /// </summary>
         internal static string help {
             get {

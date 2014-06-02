@@ -124,6 +124,9 @@
   <data name="help" xml:space="preserve">
     <value>h - help
 arrows - movement
-Escape - quit</value>
+escape - quit
+m - toggle bacground music
+s/l - save/load level from file
+r - generate new level</value>
   </data>
 </root>

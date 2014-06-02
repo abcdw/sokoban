@@ -14,17 +14,17 @@ namespace sokoban
 {
     class Game : GameWindow
     {
-        private const int NominalWidth = 350;
-        private const int NominalHeight = 350;
+        private const int NominalWidth = 600;
+        private const int NominalHeight = 600;
 
         private float ProjectionWidth;
         private float ProjectionHeight;
-        private const int BlockSize = 35;
+        private const int BlockSize = 30;
         private Map map;
         private Color4[] fieldColor = {
-            Color4.Black,
+            Color4.White,
+            Color4.DarkOrange,
             Color4.Brown,
-            Color4.Gray,
             Color4.Red,
         };
         private SoundPlayer player;
@@ -43,14 +43,14 @@ namespace sokoban
             : base(NominalWidth, NominalHeight, GraphicsMode.Default, "Sokoban")
         {
             VSync = VSyncMode.On;
-            map = new Map();
+            map = new Map(20, 20);
 
             Keyboard.KeyDown +=
                 new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
 
             //WindowState = WindowState.Fullscreen;
-            Height = 1000;
-            Width = 973;
+            //Height = 1000;
+            //Width = 973;
             WindowBorder = WindowBorder.Fixed;
 
             player = new SoundPlayer(sokoban.resources.bacground01);
@@ -105,6 +105,10 @@ namespace sokoban
 
                 case Key.M:
                     ToggleMusic();
+                    break;
+
+                case Key.R:
+                    map.generateField();
                     break;
 
                 case Key.Right:

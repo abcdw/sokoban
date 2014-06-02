@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.IO;
+using System;
 
 namespace sokoban
 {
@@ -51,8 +52,25 @@ namespace sokoban
         {
             player = new Point();
             field = new int[height, width];
-            field[2, 2] = (int)FieldType.block;
+            
+            Random rnd = new Random();
+            for (int i = 2; i < height - 2; ++i)
+                for (int j = 2; j < width - 2; ++j)
+                    if (rnd.Next(3) > 0)
+                        field[i, j] = rnd.Next(3);
+            for (int i = 1; i < height - 1; ++i)
+                field[i, 1] = field[i, width - 2] = (int)FieldType.wall;
+            for (int i = 1; i < width - 1; ++i)
+                field[1, i] = field[height - 2, i] = (int)FieldType.wall;
+            player.X = 2;
+            player.Y = 2;
             field[player.X, player.Y] = (int)FieldType.player;
+        }
+
+        public void generateField()
+        {
+            initField();
+            System.Console.WriteLine("Field generated");
         }
 
         private bool isInField(Point p)
