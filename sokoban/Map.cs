@@ -147,6 +147,7 @@ namespace sokoban
             }
 
             file.Close();
+            finished = false;
             System.Console.WriteLine("map loaded from 1.map");
         }
 
