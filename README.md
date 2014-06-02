@@ -1,5 +1,6 @@
 sokoban
 =======
+Simple c# sokoban game.
 ![Easy Level](https://raw.githubusercontent.com/abcdw/sokoban/master/shots/EasyLevel.png "Easy level screenshot")
 
 hotkeys:
