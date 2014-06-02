@@ -1,5 +1,6 @@
 sokoban
 =======
+![Easy Level](link to image "Easy level screenshot")
 
 hotkeys:
 - Escape => exit
