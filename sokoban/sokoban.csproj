@@ -85,12 +85,22 @@
     <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="resources.Designer.cs">
+    <Compile Include="resources\textures.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>resources.resx</DependentUpon>
+      <DependentUpon>textures.resx</DependentUpon>
+    </Compile>
+    <Compile Include="resources\sound.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>sound.resx</DependentUpon>
     </Compile>
     <Compile Include="SoundEngine.cs" />
+    <Compile Include="resources\text.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>text.resx</DependentUpon>
+    </Compile>
     <Compile Include="Texture.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,13 +109,22 @@
     <None Include="sokoban_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="resources.resx">
+    <EmbeddedResource Include="resources\textures.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <LastGenOutput>textures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\sound.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>sound.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\text.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>text.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\music\bacground01.wav" />
+    <None Include="resources\sound\bacground01.wav" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -128,7 +147,7 @@
     <None Include="resources\MainIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\music\levelfinished01.wav" />
+    <None Include="resources\sound\levelfinished01.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\textures\brickwall.png" />
@@ -144,6 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\textures\player.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\sound\levelcomplete01.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

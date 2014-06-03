@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace sokoban {
+namespace sokoban.resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace sokoban {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class resources {
+    internal class textures {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal resources() {
+        internal textures() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace sokoban {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("sokoban.resources", typeof(resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("sokoban.resources.textures", typeof(textures).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -97,20 +97,6 @@ namespace sokoban {
             get {
                 object obj = ResourceManager.GetObject("finish", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на h - help
-        ///arrows - movement
-        ///escape - quit
-        ///m - toggle bacground music
-        ///s/l - save/load level from file
-        ///r - generate new level.
-        /// </summary>
-        internal static string help {
-            get {
-                return ResourceManager.GetString("help", resourceCulture);
             }
         }
         

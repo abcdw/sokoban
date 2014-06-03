@@ -8,7 +8,6 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System.Drawing;
-using System.Media;
 
 namespace sokoban
 {
@@ -36,8 +35,7 @@ namespace sokoban
         private Texture TextureBackground;
         private Texture[] Textures = new Texture[ColorsCount];
 
-        private SoundPlayer backgroundMusic;
-        private bool playingMusic;
+        private SoundEngine sound = new SoundEngine();
 
         #endregion
         [STAThread]
@@ -59,23 +57,21 @@ namespace sokoban
                 new EventHandler<KeyboardKeyEventArgs>(OnKeyDown);
 
             //WindowState = WindowState.Fullscreen;
-            //Height = 1000;
-            //Width = 973;
             //WindowBorder = WindowBorder.Fixed;
 
-            backgroundMusic = new SoundPlayer(sokoban.sound.bacground01);
+            sound = new SoundEngine();
+            sound.playBackground();
 
-            ToggleMusic();
-            TextureBackground = new Texture(sokoban.resources.background);
+            TextureBackground = new Texture(sokoban.resources.textures.background);
             for (int i = 0; i < 5; i++) {
-                Textures[i] = new Texture(sokoban.resources.background);
+                Textures[i] = new Texture(sokoban.resources.textures.background);
             }
 
-            Textures[(int)Map.FieldType.wall] = new Texture(sokoban.resources.brickwall);
-            Textures[(int)Map.FieldType.finish] = new Texture(sokoban.resources.finish);
-            Textures[(int)Map.FieldType.block] = new Texture(sokoban.resources.box);
-            Textures[(int)Map.FieldType.player] = new Texture(sokoban.resources.player);
-            RenderText(sokoban.resources.help);
+            Textures[(int)Map.FieldType.wall] = new Texture(sokoban.resources.textures.brickwall);
+            Textures[(int)Map.FieldType.finish] = new Texture(sokoban.resources.textures.finish);
+            Textures[(int)Map.FieldType.block] = new Texture(sokoban.resources.textures.box);
+            Textures[(int)Map.FieldType.player] = new Texture(sokoban.resources.textures.player);
+            RenderText(sokoban.resources.text.help);
         }
 
         protected override void OnLoad(EventArgs E)
@@ -127,11 +123,11 @@ namespace sokoban
                     break;
 
                 case Key.M:
-                    ToggleMusic();
+                    sound.toggleMute();
                     break;
                 case Key.R:
                     if (map.Finished)
-                        ToggleMusic();
+                        sound.playBackground();
                     map.generateField();
                     break;
             }
@@ -255,26 +251,10 @@ namespace sokoban
             System.Console.WriteLine(text);
         }
 
-        private void ToggleMusic()
-        {
-            if (!playingMusic) {
-                backgroundMusic.PlayLooping();
-            } else {
-                backgroundMusic.Stop();
-            }
-
-            playingMusic = !playingMusic;
-        }
-
         private void OnLevelFinish()
         {
-            if (playingMusic)
-                ToggleMusic();
-
             RenderText("Level complete. Congratulations!");
-            SoundPlayer player = new SoundPlayer(sokoban.sound.levelfinished01);
-            player.Play();
-            
+            sound.playLevelComplete();
         }
     }
 }

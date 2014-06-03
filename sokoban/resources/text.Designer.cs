@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace sokoban {
+namespace sokoban.resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace sokoban {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class sound {
+    internal class text {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal sound() {
+        internal text() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace sokoban {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("sokoban.sound", typeof(sound).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("sokoban.resources.text", typeof(text).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,16 @@ namespace sokoban {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
+        ///   Ищет локализованную строку, похожую на h - help
+        ///arrows - movement
+        ///escape - quit
+        ///m - toggle bacground music
+        ///s/l - save/load level from file
+        ///r - generate new level.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream bacground01 {
+        internal static string help {
             get {
-                return ResourceManager.GetStream("bacground01", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.IO.UnmanagedMemoryStream, аналогичного System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream levelfinished01 {
-            get {
-                return ResourceManager.GetStream("levelfinished01", resourceCulture);
+                return ResourceManager.GetString("help", resourceCulture);
             }
         }
     }
