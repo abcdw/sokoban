@@ -90,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SoundEngine.cs" />
     <Compile Include="Texture.cs" />
   </ItemGroup>
   <ItemGroup>

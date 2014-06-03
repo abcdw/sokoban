@@ -63,7 +63,7 @@ namespace sokoban
             //Width = 973;
             //WindowBorder = WindowBorder.Fixed;
 
-            backgroundMusic = new SoundPlayer(sokoban.resources.bacground01);
+            backgroundMusic = new SoundPlayer(sokoban.sound.bacground01);
 
             ToggleMusic();
             TextureBackground = new Texture(sokoban.resources.background);
@@ -130,9 +130,9 @@ namespace sokoban
                     ToggleMusic();
                     break;
                 case Key.R:
-                    map.generateField();
-                    if (!playingMusic)
+                    if (map.Finished)
                         ToggleMusic();
+                    map.generateField();
                     break;
             }
 
@@ -272,7 +272,7 @@ namespace sokoban
                 ToggleMusic();
 
             RenderText("Level complete. Congratulations!");
-            SoundPlayer player = new SoundPlayer(sokoban.resources.levelfinished01);
+            SoundPlayer player = new SoundPlayer(sokoban.sound.levelfinished01);
             player.Play();
             
         }
