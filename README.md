@@ -1,9 +1,10 @@
 sokoban
 =======
+[latest binary package](http://yadi.sk/d/ImpnT5mKS2Ljm)
+
 Simple c# sokoban game.
 ![Easy Level](https://raw.githubusercontent.com/abcdw/sokoban/master/shots/EasyLevel.png "Easy level screenshot")
 
-[latest binary package](http://yadi.sk/d/ImpnT5mKS2Ljm)
 
 hotkeys:
 - Escape => exit
